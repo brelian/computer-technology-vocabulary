@@ -6,7 +6,9 @@
 3. 填充到 README.md 中，table 排序
 
 自动更新：
-```build xx ==> php index.php && git commit -am "commit info" && git push```
+```
+build xx ==> php index.php && git commit -am "commit info" && git push
+```
 
 
 展示页面
