@@ -15,7 +15,8 @@ build xx ==> php index.php && git commit -am "commit info" && git push
 
 | 单词 | 音标 | 定义 | 翻译 | 备注 |
 | :--: | :--: | :--: | :--: | :--: |
-| AJAX |:speaker: <audio autoplay="autoplay" controls="controls"loop="loop" preload="auto" src="media/test.mp3"> 你的浏览器不支持audio标签</audio>|      |      |      |
+| AJAX |:speaker: <iframe name="music" src="media/test.mp3" marginwidth="1px" marginheight="20px" width=100% height="80px" frameborder=1 　scrolling="yes">
+</iframe>|      |      |      |
 |      |      |      |      |      |
 |      |      |      |      |      |
 
