@@ -15,7 +15,7 @@ build xx ==> php index.php && git commit -am "commit info" && git push
 
 | 单词 | 音标 | 定义 | 翻译 | 备注 |
 | :--: | :--: | :--: | :--: | :--: |
-| AJAX |      :speaker:|      |      |      |
+| AJAX |:speaker: <audio autoplay="autoplay" controls="controls"loop="loop" preload="auto" src="media/test.mp3"> 你的浏览器不支持audio标签</audio>|      |      |      |
 |      |      |      |      |      |
 |      |      |      |      |      |
 
@@ -25,4 +25,5 @@ build xx ==> php index.php && git commit -am "commit info" && git push
 
 ## 参考连接
 
-- https://www.zybuluo.com/mdeditor?url=https%3A%2F%2Fwww.zybuluo.com%2Fstatic%2Feditor%2Fmd-help.markdown#12
+- [Markdown 高级教程](https://www.zybuluo.com/mdeditor?url=https%3A%2F%2Fwww.zybuluo.com%2Fstatic%2Feditor%2Fmd-help.markdown#12)
+- [程序员容易读错的单词](https://github.com/saccohuo/chinese-mispronunciation-programmer/blob/master/README.md)
