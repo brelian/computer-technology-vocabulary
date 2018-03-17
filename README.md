@@ -38,3 +38,4 @@ wordadd MySQL
 | default |[:speaker:](http://dict.youdao.com/dictvoice?audio=default) | to fail to pay money that you owe at the right time |      |      |
 | shell |[:speaker:](http://dict.youdao.com/dictvoice?audio=shell) | the firing of shells from large guns |      |      |
 | Markdown |[:speaker:](http://dict.youdao.com/dictvoice?audio=Markdown) | a reduction in the price of something |      |      |
+| AJAX |[:speaker:](http://dict.youdao.com/dictvoice?audio=AJAX) | a type of substance for cleaning floors and other hard surfaces, sold as a liquid or powder |      |      |
