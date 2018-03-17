@@ -1,34 +1,33 @@
 <?php
 define('APP_PATH', dirname(__DIR__));
 // $keyword  = 'MySQL';
-$keyword  = $argv[1];
-$url      = 'http://api.pearson.com/v2/dictionaries/entries?headword=' . $keyword . '&audio=pronunciation';
+$keyword = $argv[1];
+
+// if results is empty, using anather API
+$url      = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' . $keyword . '&limit=1&namespace=0&format=json';
 $response = json_decode(file_get_contents($url), true);
-
-if ($response['results']) {
-    // if results in not empty
-    foreach ($response['results'] as $value) {
-
-        if (!empty($value['senses'][0]['definition'][0])) {
-            $senses[] = $value['senses'][0]['definition'][0];
-        }
-
-        if (empty($pronunciations) && !empty($value['pronunciations'])) {
-            $pronunciation = $value['pronunciations'][0];
-        }
-    }
-
+if (!empty($response[1][0]) && !empty($response[2][0])) {
+    echo 'from widipedia \n';
+    $word       = $response[1][0];
+    $definition = $response[2][0];
 } else {
-    // if results is empty, using anather API
-    $url      = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' . $keyword . '&limit=1&namespace=0&format=json';
+    echo 'from pearson';
+    $url      = 'http://api.pearson.com/v2/dictionaries/entries?headword=' . $keyword;
     $response = json_decode(file_get_contents($url), true);
-    // $pronunciations = ...
-    $senses = $response[2];
+
+    if ($response['results']) {
+        foreach ($response['results'] as $value) {
+            if (!empty($value['senses'][0]['definition'][0])) {
+                $senses[] = is_array($value['senses'][0]['definition']) ? $value['senses'][0]['definition'][0] : $value['senses'][0]['definition'];
+            }
+        }
+
+        $definition = $senses[0];
+        $word       = $response['results'][0]['headword'];
+    }
+    // print_r($senses);
 }
 
-if ($senses) {
-	$audioUrl = 'http://dict.youdao.com/dictvoice?audio=' . $keyword;
-	$tbody    = "\n| $keyword |[:speaker:]($audioUrl) | $senses[0] |      |      |";
-	file_put_contents(APP_PATH . '/README.md', $tbody, FILE_APPEND);
-}
-
+$audioUrl = 'http://dict.youdao.com/dictvoice?audio=' . $word;
+$row      = "\n| $word |[:speaker:]($audioUrl) | $definition |      |      |";
+file_put_contents(APP_PATH . '/README.md', $row, FILE_APPEND);
