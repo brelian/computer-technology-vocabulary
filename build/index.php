@@ -1,4 +1,5 @@
 <?php
+define('APP_PATH', dirname(__DIR__));
 // $keyword  = 'MySQL';
 $keyword  = $argv[1];
 $url      = 'http://api.pearson.com/v2/dictionaries/entries?headword=' . $keyword . '&audio=pronunciation';
@@ -6,11 +7,15 @@ $response = json_decode(file_get_contents($url), true);
 
 if ($response['results']) {
     // if results in not empty
-    foreach ($response['results'] as  $value) {
-    	$senses[] = $value['senses'][0]['definition'][0];
-    	if (empty($pronunciations) && !empty($value['pronunciations'])) {
-	    	$pronunciation = $value['pronunciations'][0];
-    	}
+    foreach ($response['results'] as $value) {
+
+        if (!empty($value['senses'][0]['definition'][0])) {
+            $senses[] = $value['senses'][0]['definition'][0];
+        }
+
+        if (empty($pronunciations) && !empty($value['pronunciations'])) {
+            $pronunciation = $value['pronunciations'][0];
+        }
     }
 
 } else {
@@ -21,8 +26,9 @@ if ($response['results']) {
     $senses = $response[2];
 }
 
-$audioUrl = 'http://dict.youdao.com/dictvoice?audio='.$keyword;
+if ($senses) {
+	$audioUrl = 'http://dict.youdao.com/dictvoice?audio=' . $keyword;
+	$tbody    = "\n| $keyword |[:speaker:]($audioUrl) | $senses[0] |      |      |";
+	file_put_contents(APP_PATH . '/README.md', $tbody, FILE_APPEND);
+}
 
-
-$tbody = "\n| $keyword |[:speaker:]($audioUrl) | $senses[0] |      |      |";
-file_put_contents(realpath('../README.md'), $tbody,FILE_APPEND);
